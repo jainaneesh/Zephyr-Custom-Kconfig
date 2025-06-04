@@ -1,0 +1,33 @@
+zephyr/CMakeFiles/zephyr.dir/lib/utils/hex.c.obj: \
+ /opt/toolchains/zephyr/lib/utils/hex.c \
+ /workspace/apps/05_solution_pwm_knob/build/zephyr/include/generated/zephyr/autoconf.h \
+ /opt/toolchains/zephyr/include/zephyr/toolchain/zephyr_stdint.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/lib/gcc/xtensa-espressif_esp32s3_zephyr-elf/12.2.0/include/stddef.h \
+ /opt/toolchains/zephyr/include/zephyr/types.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/picolibc/include/stdint.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/picolibc/include/machine/_default_types.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/picolibc/include/sys/features.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/picolibc/include/picolibc.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/picolibc/include/sys/_intsup.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/picolibc/include/sys/_stdint.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/picolibc/include/errno.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/picolibc/include/sys/errno.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/picolibc/include/sys/config.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/picolibc/include/machine/ieeefp.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/lib/gcc/xtensa-espressif_esp32s3_zephyr-elf/12.2.0/include/float.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/picolibc/include/newlib.h \
+ /opt/toolchains/zephyr/include/zephyr/sys/util.h \
+ /opt/toolchains/zephyr/include/zephyr/sys/util_macro.h \
+ /opt/toolchains/zephyr/include/zephyr/sys/util_internal.h \
+ /opt/toolchains/zephyr/include/zephyr/sys/util_loops.h \
+ /opt/toolchains/zephyr/include/zephyr/sys/util_listify.h \
+ /opt/toolchains/zephyr/include/zephyr/sys/util_internal_is_eq.h \
+ /opt/toolchains/zephyr/include/zephyr/sys/util_internal_util_inc.h \
+ /opt/toolchains/zephyr/include/zephyr/sys/util_internal_util_dec.h \
+ /opt/toolchains/zephyr/include/zephyr/sys/util_internal_util_x2.h \
+ /opt/toolchains/zephyr/include/zephyr/toolchain.h \
+ /opt/toolchains/zephyr/include/zephyr/toolchain/gcc.h \
+ /opt/toolchains/zephyr/include/zephyr/toolchain/common.h \
+ /opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/lib/gcc/xtensa-espressif_esp32s3_zephyr-elf/12.2.0/include/stdbool.h \
+ /opt/toolchains/zephyr/include/zephyr/sys/__assert.h \
+ /opt/toolchains/zephyr/include/zephyr/sys/time_units.h

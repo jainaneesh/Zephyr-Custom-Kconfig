@@ -1,0 +1,2 @@
+/opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/bin/xtensa-espressif_esp32s3_zephyr-elf-ar qc liblib__libc__picolibc.a "CMakeFiles/lib__libc__picolibc.dir/libc-hooks.c.obj"
+/opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/bin/xtensa-espressif_esp32s3_zephyr-elf-ranlib liblib__libc__picolibc.a

@@ -1,0 +1,2 @@
+/opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/bin/xtensa-espressif_esp32s3_zephyr-elf-ar qc liblib__posix__options.a CMakeFiles/lib__posix__options.dir/opt/toolchains/zephyr/misc/empty_file.c.obj
+/opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/bin/xtensa-espressif_esp32s3_zephyr-elf-ranlib liblib__posix__options.a

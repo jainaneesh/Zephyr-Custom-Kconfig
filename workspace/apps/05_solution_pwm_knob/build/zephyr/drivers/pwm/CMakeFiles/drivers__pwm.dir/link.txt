@@ -1,0 +1,2 @@
+/opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/bin/xtensa-espressif_esp32s3_zephyr-elf-ar qc libdrivers__pwm.a CMakeFiles/drivers__pwm.dir/pwm_led_esp32.c.obj
+/opt/toolchains/zephyr-sdk-0.16.8/xtensa-espressif_esp32s3_zephyr-elf/bin/xtensa-espressif_esp32s3_zephyr-elf-ranlib libdrivers__pwm.a
