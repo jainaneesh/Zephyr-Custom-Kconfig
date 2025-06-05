@@ -7,6 +7,10 @@
 #include "display_brightness.h"
 #endif
 
+#ifdef CONFIG_PWM_LED_COUNT
+#include "number_of_leds.h"
+#endif
+
 // Settings
 static const int32_t sleep_time_ms = 500;
 
@@ -14,9 +18,21 @@ static const int32_t sleep_time_ms = 500;
 #define MY_ADC_CH DT_ALIAS(my_adc_channel)
 static const struct device *adc = DEVICE_DT_GET(DT_ALIAS(my_adc));
 static const struct adc_channel_cfg adc_ch = ADC_CHANNEL_CFG_DT(MY_ADC_CH);
-static const struct pwm_dt_spec pwm_led_0 = PWM_DT_SPEC_GET(DT_ALIAS(led_0));
-static const struct pwm_dt_spec pwm_led_1 = PWM_DT_SPEC_GET(DT_ALIAS(led_1));
-static const struct pwm_dt_spec pwm_led_2 = PWM_DT_SPEC_GET(DT_ALIAS(led_2));
+
+#if CONFIG_PWM_LED_COUNT == 3
+	static const struct pwm_dt_spec pwm_led_0 = PWM_DT_SPEC_GET(DT_ALIAS(led_0));
+	static const struct pwm_dt_spec pwm_led_1 = PWM_DT_SPEC_GET(DT_ALIAS(led_1));
+	static const struct pwm_dt_spec pwm_led_2 = PWM_DT_SPEC_GET(DT_ALIAS(led_2));
+#endif
+
+#if CONFIG_PWM_LED_COUNT == 2
+	static const struct pwm_dt_spec pwm_led_0 = PWM_DT_SPEC_GET(DT_ALIAS(led_0));
+	static const struct pwm_dt_spec pwm_led_1 = PWM_DT_SPEC_GET(DT_ALIAS(led_1));
+#endif
+
+#if CONFIG_PWM_LED_COUNT == 1
+	static const struct pwm_dt_spec pwm_led_0 = PWM_DT_SPEC_GET(DT_ALIAS(led_0));
+#endif
 
 int main(void)
 {
@@ -74,15 +90,29 @@ int main(void)
 		}
 
 		// Calculate pulse width
-		pulse_ns_0 = pwm_led_0.period / ((1 << seq.resolution) / (float)buf);
-		printk("Buffer Value: %d Pulse 0 %d\r\n", buf, pulse_ns_0);
-		//printk("pulse ns 0: %d\r\n", pulse_ns_0);
-		// pulse_ns_1 = pwm_led_1.period / ((1 << seq.resolution) / (float)buf);
-		// printk("Buffer Value: %d Pulse 1 %d\r\n", buf, pulse_ns_1);
-		//printk("pulse ns 1: %d\r\n", pulse_ns_1);
-		// pulse_ns_2 = pwm_led_2.period / ((1 << seq.resolution) / (float)buf);
-		// printk("Buffer Value: %d Pulse 2 %d\r\n", buf, pulse_ns_2);
-		//printk("pulse ns 2: %d\r\n", pulse_ns_2);
+		#if CONFIG_PWM_LED_COUNT == 1
+			pulse_ns_0 = pwm_led_0.period / ((1 << seq.resolution) / (float)buf);
+			ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
+			printk("Buffer Value: %4d\t Pulse 1: %4d\r\n", buf, pulse_ns_0);
+		#endif
+
+		#if CONFIG_PWM_LED_COUNT == 2
+			pulse_ns_0 = pwm_led_0.period / ((1 << seq.resolution) / (float)buf);
+			pulse_ns_1 = pwm_led_1.period / ((1 << seq.resolution) / (float)buf);
+			ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
+			ret1 = pwm_set_dt(&pwm_led_1, pwm_led_1.period, pulse_ns_1);
+			printk("Buffer Value: %4d\t Pulse 1: %4d\t, Pulse 2: %4d\t\r\n", buf, pulse_ns_0, pulse_ns_1);
+		#endif
+
+		#if CONFIG_PWM_LED_COUNT == 3
+			pulse_ns_0 = pwm_led_0.period / ((1 << seq.resolution) / (float)buf);
+			pulse_ns_1 = pwm_led_1.period / ((1 << seq.resolution) / (float)buf);
+			pulse_ns_2 = pwm_led_2.period / ((1 << seq.resolution) / (float)buf);
+			ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
+			ret1 = pwm_set_dt(&pwm_led_1, pwm_led_1.period, pulse_ns_1);
+			ret2 = pwm_set_dt(&pwm_led_2, pwm_led_2.period, pulse_ns_2);
+			printk("Buffer Value: %4d\t Pulse 1: %4d\t Pulse 2: %4d\t Pulse 3: %4d\r\n", buf, pulse_ns_0, pulse_ns_1, pulse_ns_2);
+		#endif
 
 		#ifdef CONFIG_DISPLAY_BRIGHTNESS
 		display_brightness();
@@ -90,14 +120,14 @@ int main(void)
 		#endif
 
 		// Set LED PWM pulse width
-		ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
+		// ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
 		//printk("%d Period 0\n", pwm_led_0.period);
 		//printk("%d set to pulse width\n", ret0);
-		ret1 = pwm_set_dt(&pwm_led_1, pwm_led_1.period, pulse_ns_0);
+		// ret1 = pwm_set_dt(&pwm_led_1, pwm_led_1.period, pulse_ns_0);
 		// ret1 = pwm_set_dt(&pwm_led_1, 1000, 500); // GPIO6 (CH1)
 		//printk("%d Period 1\n", pwm_led_1.period);
 		//printk("%d set to pulse width\n", pwm_led_1.period);
-		ret2 = pwm_set_dt(&pwm_led_2, pwm_led_2.period, pulse_ns_0);
+		// ret2 = pwm_set_dt(&pwm_led_2, pwm_led_2.period, pulse_ns_0);
 		// ret2 = pwm_set_dt(&pwm_led_2, 1000, 500); // GPIO7 (CH2)
 		//printk("%d Period 2\n", pwm_led_2.period);
 		//printk("%d set to pulse width\n", ret2);
