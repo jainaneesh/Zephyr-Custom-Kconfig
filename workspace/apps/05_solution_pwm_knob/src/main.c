@@ -14,14 +14,20 @@ static const int32_t sleep_time_ms = 500;
 #define MY_ADC_CH DT_ALIAS(my_adc_channel)
 static const struct device *adc = DEVICE_DT_GET(DT_ALIAS(my_adc));
 static const struct adc_channel_cfg adc_ch = ADC_CHANNEL_CFG_DT(MY_ADC_CH);
-static const struct pwm_dt_spec pwm_led = PWM_DT_SPEC_GET(DT_ALIAS(led_0));
+static const struct pwm_dt_spec pwm_led_0 = PWM_DT_SPEC_GET(DT_ALIAS(led_0));
+static const struct pwm_dt_spec pwm_led_1 = PWM_DT_SPEC_GET(DT_ALIAS(led_1));
+static const struct pwm_dt_spec pwm_led_2 = PWM_DT_SPEC_GET(DT_ALIAS(led_2));
 
 int main(void)
 {
-	int ret;
+	int ret0;
+	int ret1;
+	int ret2;
 	uint16_t buf;
 	int32_t vref_mv;
-	uint32_t pulse_ns;
+	uint32_t pulse_ns_0;
+	uint32_t pulse_ns_1;
+	uint32_t pulse_ns_2;
 
 	// Get Vref (mV) from Devicetree property
 	vref_mv = DT_PROP(MY_ADC_CH, zephyr_vref_mv);
@@ -41,30 +47,42 @@ int main(void)
 	}
 
 	// Make sure that the PWM LED was initialized
-	if (!pwm_is_ready_dt(&pwm_led)) {
+	if (!pwm_is_ready_dt(&pwm_led_0)) {
 		printk("PWM is not ready\r\n");
 		return 0;
 	}
 
 	// Configure ADC channel
-	ret = adc_channel_setup(adc, &adc_ch);
-	if (ret < 0) {
+	ret0 = adc_channel_setup(adc, &adc_ch);
+	if (ret0 < 0) {
 		printk("Could not set up ADC\r\n");
 		return 0;
 	}
-
+	//printk("PWM_0 ready: %d\n", pwm_is_ready_dt(&pwm_led_0));
+	//printk("PWM_1 ready: %d\n", pwm_is_ready_dt(&pwm_led_1));
+	//printk("PWM_2 ready: %d\n", pwm_is_ready_dt(&pwm_led_2));
 	// Do forever
 	while (1) {
 
 		// Sample ADC
-		ret = adc_read(adc, &seq);
-		if (ret < 0) {
-			printk("Could not read ADC: %d\r\n", ret);
+		ret0 = adc_read(adc, &seq);
+		// ret1 = adc_read(adc, &seq);
+		// ret2 = adc_read(adc, &seq);
+		if (ret0 < 0) {
+			printk("Could not read ADC %d\r\n",ret0);
 			continue;
 		}
 
 		// Calculate pulse width
-		pulse_ns = pwm_led.period / ((1 << seq.resolution) / (float)buf);
+		pulse_ns_0 = pwm_led_0.period / ((1 << seq.resolution) / (float)buf);
+		printk("Buffer Value: %d Pulse 0 %d\r\n", buf, pulse_ns_0);
+		//printk("pulse ns 0: %d\r\n", pulse_ns_0);
+		// pulse_ns_1 = pwm_led_1.period / ((1 << seq.resolution) / (float)buf);
+		// printk("Buffer Value: %d Pulse 1 %d\r\n", buf, pulse_ns_1);
+		//printk("pulse ns 1: %d\r\n", pulse_ns_1);
+		// pulse_ns_2 = pwm_led_2.period / ((1 << seq.resolution) / (float)buf);
+		// printk("Buffer Value: %d Pulse 2 %d\r\n", buf, pulse_ns_2);
+		//printk("pulse ns 2: %d\r\n", pulse_ns_2);
 
 		#ifdef CONFIG_DISPLAY_BRIGHTNESS
 		display_brightness();
@@ -72,9 +90,19 @@ int main(void)
 		#endif
 
 		// Set LED PWM pulse width
-		ret = pwm_set_dt(&pwm_led, pwm_led.period, pulse_ns);
-		if (ret) {
-			printk("Error %d: failed to set pulse width\n", ret);
+		ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
+		//printk("%d Period 0\n", pwm_led_0.period);
+		//printk("%d set to pulse width\n", ret0);
+		ret1 = pwm_set_dt(&pwm_led_1, pwm_led_1.period, pulse_ns_0);
+		// ret1 = pwm_set_dt(&pwm_led_1, 1000, 500); // GPIO6 (CH1)
+		//printk("%d Period 1\n", pwm_led_1.period);
+		//printk("%d set to pulse width\n", pwm_led_1.period);
+		ret2 = pwm_set_dt(&pwm_led_2, pwm_led_2.period, pulse_ns_0);
+		// ret2 = pwm_set_dt(&pwm_led_2, 1000, 500); // GPIO7 (CH2)
+		//printk("%d Period 2\n", pwm_led_2.period);
+		//printk("%d set to pulse width\n", ret2);
+		if (ret0 || ret1 || ret2) {
+			printk("Error %d %d %d: failed to set pulse width\n", ret0, ret1, ret2);
 			return 0;
 		}
 
