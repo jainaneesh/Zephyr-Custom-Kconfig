@@ -1,0 +1,11 @@
+# Create a new option in menuconfig
+menu "PWM LED Configuration"
+
+config PWM_LED_COUNT
+    int "Number of LEDs to be configured"
+    default 1
+    range 1 3
+    help
+        Adds the number of LEDs to be configured for a project
+
+endmenu

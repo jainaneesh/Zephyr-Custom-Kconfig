@@ -1,0 +1,4 @@
+name: number_of_leds
+build:
+  cmake: .
+  kconfig: Kconfig
