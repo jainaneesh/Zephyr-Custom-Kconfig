@@ -18,11 +18,13 @@ workspace/
 │       │   └── main.c
 │       └── prj.conf
 ├── modules/
-│   └── number_of_leds/
-│       ├── Kconfig
-│       ├── CMakeLists.txt
-│       ├── number_of_leds.c
-│       └── number_of_leds.h
+│   └── number_of_leds
+|   ├── zephyr
+|       └── module.yaml
+│   ├── Kconfig
+│   ├── CMakeLists.txt
+│   ├── number_of_leds.c
+│   └── number_of_leds.h
 ```
 🧩 Kconfig Integration
 The Kconfig file allows the user to select the number of LEDs to control via PWM from the menuconfig interface:
