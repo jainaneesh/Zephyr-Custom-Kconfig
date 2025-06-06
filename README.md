@@ -14,17 +14,22 @@ Uses a custom Kconfig option to select how many PWM channels are enabled at buil
 workspace/
 ├── apps/
 │   └── 05_solution_pwm_knob/
+|       ├── CMakeLists.txt
 │       ├── src/
-│       │   └── main.c
+│           └── main.c
 │       └── prj.conf
+|       ├── boards/
+|           └── esp32s3_devkitc.conf
+|           └── esp32s3_devkitc.overlay
 ├── modules/
 │   └── number_of_leds
-|   ├── zephyr
-|       └── module.yaml
-│   ├── Kconfig
-│   ├── CMakeLists.txt
-│   ├── number_of_leds.c
-│   └── number_of_leds.h
+│       ├── Kconfig
+│       ├── CMakeLists.txt
+│       ├── number_of_leds.c
+│       └── number_of_leds.h
+|       ├── zephyr
+|           └── module.yaml
+
 ```
 🧩 Kconfig Integration
 The Kconfig file allows the user to select the number of LEDs to control via PWM from the menuconfig interface:
