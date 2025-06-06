@@ -83,44 +83,44 @@ PWM LED structures and logic are conditionally compiled based on the PWM_LED_COU
 #endif
 ```
 ```bash
-	#if CONFIG_PWM_LED_COUNT >= 1
-		uint32_t pulse_ns_0;
-		int ret0;
-	#endif
-	#if CONFIG_PWM_LED_COUNT >= 2
-		uint32_t pulse_ns_1;
-		int ret1;
-	#endif
-	#if CONFIG_PWM_LED_COUNT >= 3
-		uint32_t pulse_ns_2;
-		int ret2;
-	#endif
+#if CONFIG_PWM_LED_COUNT >= 1
+	uint32_t pulse_ns_0;
+	int ret0;
+#endif
+#if CONFIG_PWM_LED_COUNT >= 2
+	uint32_t pulse_ns_1;
+	int ret1;
+#endif
+#if CONFIG_PWM_LED_COUNT >= 3
+	uint32_t pulse_ns_2;
+	int ret2;
+#endif
 ```
 ```bash
 // Calculate pulse width
-		#if CONFIG_PWM_LED_COUNT == 1
-			pulse_ns_0 = pwm_led_0.period / ((1 << seq.resolution) / (float)buf);
-			ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
-			printk("Buffer Value: %4d\t Pulse 1: %4d\r\n", buf, pulse_ns_0);
-		#endif
+#if CONFIG_PWM_LED_COUNT == 1
+	pulse_ns_0 = pwm_led_0.period / ((1 << seq.resolution) / (float)buf);
+	ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
+	printk("Buffer Value: %4d\t Pulse 1: %4d\r\n", buf, pulse_ns_0);
+#endif
 
-		#if CONFIG_PWM_LED_COUNT == 2
-			pulse_ns_0 = pwm_led_0.period / ((1 << seq.resolution) / (float)buf);
-			pulse_ns_1 = pwm_led_1.period / ((1 << seq.resolution) / (float)buf);
-			ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
-			ret1 = pwm_set_dt(&pwm_led_1, pwm_led_1.period, pulse_ns_1);
-			printk("Buffer Value: %4d\t Pulse 1: %4d\t, Pulse 2: %4d\t\r\n", buf, pulse_ns_0, pulse_ns_1);
-		#endif
+#if CONFIG_PWM_LED_COUNT == 2
+	pulse_ns_0 = pwm_led_0.period / ((1 << seq.resolution) / (float)buf);
+	pulse_ns_1 = pwm_led_1.period / ((1 << seq.resolution) / (float)buf);
+	ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
+	ret1 = pwm_set_dt(&pwm_led_1, pwm_led_1.period, pulse_ns_1);
+	printk("Buffer Value: %4d\t Pulse 1: %4d\t, Pulse 2: %4d\t\r\n", buf, pulse_ns_0, pulse_ns_1);
+#endif
 
-		#if CONFIG_PWM_LED_COUNT == 3
-			pulse_ns_0 = pwm_led_0.period / ((1 << seq.resolution) / (float)buf);
-			pulse_ns_1 = pwm_led_1.period / ((1 << seq.resolution) / (float)buf);
-			pulse_ns_2 = pwm_led_2.period / ((1 << seq.resolution) / (float)buf);
-			ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
-			ret1 = pwm_set_dt(&pwm_led_1, pwm_led_1.period, pulse_ns_1);
-			ret2 = pwm_set_dt(&pwm_led_2, pwm_led_2.period, pulse_ns_2);
-			printk("Buffer Value: %4d\t Pulse 1: %4d\t Pulse 2: %4d\t Pulse 3: %4d\r\n", buf, pulse_ns_0, pulse_ns_1, pulse_ns_2);
-		#endif
+#if CONFIG_PWM_LED_COUNT == 3
+	pulse_ns_0 = pwm_led_0.period / ((1 << seq.resolution) / (float)buf);
+	pulse_ns_1 = pwm_led_1.period / ((1 << seq.resolution) / (float)buf);
+	pulse_ns_2 = pwm_led_2.period / ((1 << seq.resolution) / (float)buf);
+	ret0 = pwm_set_dt(&pwm_led_0, pwm_led_0.period, pulse_ns_0);
+	ret1 = pwm_set_dt(&pwm_led_1, pwm_led_1.period, pulse_ns_1);
+	ret2 = pwm_set_dt(&pwm_led_2, pwm_led_2.period, pulse_ns_2);
+	printk("Buffer Value: %4d\t Pulse 1: %4d\t Pulse 2: %4d\t Pulse 3: %4d\r\n", buf, pulse_ns_0, pulse_ns_1, pulse_ns_2);
+#endif
 ```
 ***PWM duty cycles are only calculated and updated for the enabled LEDs, reducing flash and RAM use.***
 
